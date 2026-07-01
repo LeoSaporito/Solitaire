@@ -200,7 +200,7 @@ Camera:
   m_Enabled: 1
   serializedVersion: 2
   m_ClearFlags: 2
-  m_BackGroundColor: {r: 0.19215687, g: 0.3019608, b: 0.4745098, a: 0}
+  m_BackGroundColor: {r: 0.19215688, g: 0.4745098, b: 0.23449881, a: 0}
   m_projectionMatrixMode: 1
   m_GateFitMode: 2
   m_FOVAxisMode: 0
@@ -385,11 +385,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6bedac113c24fbf468916d9e9218f53f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::GameManager
-  cards: 
   shuffledNumbers: 
   cardsInQueue: 
   cardPrefab: {fileID: 5770567195963391006, guid: daf0c72040bf5f140b2e698134142f1e, type: 3}
   drawPilePrefab: {fileID: 6951838149749214566, guid: f29afd79483fb4f4abdda80ee814cb44, type: 3}
+  heartsPlacementPrefab: {fileID: 7473277036873021316, guid: 2a76d94ff73097a47b2f94b5634c8acf, type: 3}
+  diamondsPlacementPrefab: {fileID: 3249105910261526105, guid: cbf5d747baf60ef45b716a19cc8d3e85, type: 3}
+  clubsPlacementPrefab: {fileID: 8375412765688700495, guid: ddc060837672c274d962aaa0f90b6167, type: 3}
+  spadesPlacementPrefab: {fileID: 1594252169624530763, guid: 457e78928a5c2a3489b5d87d9023abd6, type: 3}
+  cardsSelected: []
 --- !u!114 &1204218777
 MonoBehaviour:
   m_ObjectHideFlags: 0
