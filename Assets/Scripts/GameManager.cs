@@ -1,54 +1,32 @@
 using NUnit.Framework;
 using UnityEngine;
 using System.Collections.Generic;
+using UnityEngine.InputSystem;
 
 public class GameManager : MonoBehaviour
 {
     public List<int> cards = new List<int>(52);
     public List<int> shuffledNumbers = new List<int>(52);
+    public List<int> cardsInQueue = new List<int>();
 
     GameObject[,] gridPosition = new GameObject[7, 12];
 
     public GameObject cardPrefab;
+    public GameObject drawPilePrefab;
 
     void Start()
     {
         ShuffleCards();
-
-        //when the game starts, draw 28 cards
-        //line the cards up so there are 7 columns
-
         SetupCards();
-                     
-    }
-
-    void SetupCards()
-    {
-        for (int x = 0; x < 7; x++)
-        {
-            for (int y = 11; y >= 11 - x; y--)
-            {
-                bool isRevealed = y == 11 - x;
-
-                DrawCard(x, y, isRevealed);
-            }
-        }
+        DrawPile();
     }
     
     void ShuffleCards()
     {
-        //Have a list of numbers in a list
-        //Put a number in each index in the list
-        
         for (int i = 0; i < 52; i++)
         {            
             cards.Add(i);
         }
-
-        //Pick a random number from that list
-        //Add the number in that index to the shuffled list
-        //Remove that index from the cards list
-        //Repeat until there is no more cards in the cards list
 
         for (int i = 0; i < 52; i++)
         {
@@ -57,12 +35,22 @@ public class GameManager : MonoBehaviour
             shuffledNumbers.Add(cards[randomNumber]);
 
             cards.RemoveAt(randomNumber);
+        }
+    }
+    void SetupCards()
+    {
+        for (int x = 0; x < 7; x++)
+        {
+            for (int y = 11; y >= 11 - x; y--)
+            {
+                bool isRevealed = y == 11 - x;
 
-            //print(shuffledNumbers[i]);
+                SetupCardsOnStart(x, y, isRevealed);
+            }
         }
     }
 
-    GameObject DrawCard(int x, int y, bool isRevealed)
+    GameObject SetupCardsOnStart(int x, int y, bool isRevealed)
     {
         GameObject cardDrawn = Instantiate(cardPrefab, new Vector2(x, y), Quaternion.identity);
         Cards cardDrawnObj = cardDrawn.GetComponent<Cards>();
@@ -89,5 +77,43 @@ public class GameManager : MonoBehaviour
         print(face);
 
         return cardDrawn;
+    }
+
+    void DrawPile()
+    {
+        GameObject drawPileObj = Instantiate(drawPilePrefab, new Vector2(-7.5f, 2.25f), Quaternion.identity);
+    }
+    GameObject DrawCard(float x, float y)
+    {
+        GameObject cardDrawn = Instantiate(cardPrefab, new Vector2(x, y), Quaternion.identity);
+        Cards cardDrawnScript = cardDrawn.GetComponent<Cards>();
+        
+        int face = shuffledNumbers[0];
+        cardsInQueue.Add(face);
+        shuffledNumbers.Remove(face);
+
+        cardDrawn.GetComponent<SpriteRenderer>().sortingOrder = cardsInQueue.Count;
+
+        cardDrawnScript.Reveal(face);
+
+        return cardDrawn;
+    }
+    public void OnClick(InputValue value)
+    {
+        if (value.isPressed)
+        {
+            Vector2 mousePosition = Camera.main.ScreenToWorldPoint(Mouse.current.position.ReadValue());
+
+            RaycastHit2D hit = Physics2D.Raycast(mousePosition, Vector2.zero);
+
+            if (hit.collider != null)
+            {
+                if (hit.collider.CompareTag("Draw Pile"))
+                {
+                    DrawCard(-7.5f, 0f);
+                }
+                Cards cardObj = hit.collider.GetComponent<Cards>();
+            }
+        }
     }
 }
