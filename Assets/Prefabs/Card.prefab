@@ -1,0 +1,164 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &5770567195963391006
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 5231392296968415951}
+  - component: {fileID: 5515351853054945610}
+  - component: {fileID: -8711390947838437143}
+  m_Layer: 0
+  m_Name: Card
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &5231392296968415951
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5770567195963391006}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!212 &5515351853054945610
+SpriteRenderer:
+  serializedVersion: 2
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5770567195963391006}
+  m_Enabled: 1
+  m_CastShadows: 0
+  m_ReceiveShadows: 0
+  m_DynamicOccludee: 1
+  m_StaticShadowCaster: 0
+  m_MotionVectors: 1
+  m_LightProbeUsage: 1
+  m_ReflectionProbeUsage: 1
+  m_RayTracingMode: 0
+  m_RayTraceProcedural: 0
+  m_RayTracingAccelStructBuildFlagsOverride: 0
+  m_RayTracingAccelStructBuildFlags: 1
+  m_SmallMeshCulling: 1
+  m_ForceMeshLod: -1
+  m_MeshLodSelectionBias: 0
+  m_RenderingLayerMask: 1
+  m_RendererPriority: 0
+  m_Materials:
+  - {fileID: 2100000, guid: a97c105638bdf8b4a8650670310a4cd3, type: 2}
+  m_StaticBatchInfo:
+    firstSubMesh: 0
+    subMeshCount: 0
+  m_StaticBatchRoot: {fileID: 0}
+  m_ProbeAnchor: {fileID: 0}
+  m_LightProbeVolumeOverride: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_ReceiveGI: 1
+  m_PreserveUVs: 0
+  m_IgnoreNormalsForChartDetection: 0
+  m_ImportantGI: 0
+  m_StitchLightmapSeams: 1
+  m_SelectedEditorRenderState: 0
+  m_MinimumChartSize: 4
+  m_AutoUVMaxDistance: 0.5
+  m_AutoUVMaxAngle: 89
+  m_LightmapParameters: {fileID: 0}
+  m_GlobalIlluminationMeshLod: 0
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: 0
+  m_MaskInteraction: 0
+  m_Sprite: {fileID: 5000927251509650613, guid: 80046fd8f0274084a93bc575b38f1337, type: 3}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_FlipX: 0
+  m_FlipY: 0
+  m_DrawMode: 0
+  m_Size: {x: 1.2916666, y: 1.7916666}
+  m_AdaptiveModeThreshold: 0.5
+  m_SpriteTileMode: 0
+  m_WasSpriteAssigned: 1
+  m_SpriteSortPoint: 0
+--- !u!114 &-8711390947838437143
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5770567195963391006}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7f1f535a1915dac4bb0143fdc186942e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Cards
+  xPosition: 0
+  yPosition: 0
+  xOffset: -2
+  yOffset: 3
+  xSpacing: 2
+  ySpacing: 1
+  heartAce: {fileID: -8441273733959377296, guid: 6ebeeb7307dcc8545b74aa215c085e1b, type: 3}
+  heartTwo: {fileID: -4190777762730400788, guid: 7db7970171b279f4c8ede2ed6df6b2e8, type: 3}
+  heartThree: {fileID: -5080595550760813040, guid: 6d0b4e842f293a943aa83d03ad3b02cd, type: 3}
+  heartFour: {fileID: 3386242047397770524, guid: 406289e7560d76f4bae45f31b89fc131, type: 3}
+  heartFive: {fileID: 4626311700453655193, guid: 04c7e17b2b60f6d48882c465fe07a1b3, type: 3}
+  heartSix: {fileID: 2263543175460562396, guid: 8335fd2650ce9ae4b91636ea00deaa41, type: 3}
+  heartSeven: {fileID: 777560723158631374, guid: 2f9d0e822432ff34aa1536e6ed79a3e4, type: 3}
+  heartEight: {fileID: -9025750187813205462, guid: 247f17ae9db2e5d4b93ed0e27195bf6b, type: 3}
+  heartNine: {fileID: 662072280117251688, guid: d172de13019e5f54188d8abdbe2e67c5, type: 3}
+  heartTen: {fileID: 7309224511431725083, guid: 11b76b5175b298d4097ca2067039ec19, type: 3}
+  heartJack: {fileID: -1673816107665133751, guid: e1eeabf1717bad04c92922ee80e94564, type: 3}
+  heartQueen: {fileID: -4107366598244862701, guid: bca16a358ca883344a7948ee7836dd22, type: 3}
+  heartKing: {fileID: -7558543541024927226, guid: ab0a5f7452bd08947bebacec62149ec6, type: 3}
+  clubAce: {fileID: 2282261284761387893, guid: d210b219b295ad048b38c2a590518405, type: 3}
+  clubTwo: {fileID: 1103438428500459488, guid: 9719944c042a2eb4c9aa7d87ef74f3d7, type: 3}
+  clubThree: {fileID: -2222999652369650826, guid: dd2626592e7176142a5cfee6fedd12f9, type: 3}
+  clubFour: {fileID: 6174422721478553713, guid: 00ba6514bd4c3ac49842566bee8c3297, type: 3}
+  clubFive: {fileID: -9207439687163743056, guid: cb8cdcf6d772ea248925e7280224fcf8, type: 3}
+  clubSix: {fileID: -8617422658698613360, guid: 719612846d6070f4197faa77fd8f3570, type: 3}
+  clubSeven: {fileID: -2583169877692637243, guid: a68e5e5fd39bb15488d8c1a3872b410b, type: 3}
+  clubEight: {fileID: -3913617833402515512, guid: 9d781a449e8465b42a03cff020ce0855, type: 3}
+  clubNine: {fileID: -3798383427738176020, guid: 7fe7ad306e55653449d4b12d7fbc68ed, type: 3}
+  clubTen: {fileID: -3552726505477222800, guid: e5af58e851fb23a4ab6926f3dd8760f4, type: 3}
+  clubJack: {fileID: -8310838319959081413, guid: 90b018f771ef7ae4ea5c6471d75e9a8a, type: 3}
+  clubQueen: {fileID: -2750914104302569772, guid: ae44d27c9d144c54e826314b10964c89, type: 3}
+  clubKing: {fileID: 1975930013532481890, guid: 9b0649b7fa949d9449739f11f6bc8287, type: 3}
+  diamondAce: {fileID: 6417644377937455523, guid: b398f6e24e1cf4e428372c9715125371, type: 3}
+  diamondTwo: {fileID: 8393071302380588569, guid: 628f5dc021fe2ca4da5d45fea0c2c42b, type: 3}
+  diamondThree: {fileID: -9087110113515938122, guid: 349186ba4a43f6b4c8623d8e6d61aa74, type: 3}
+  diamondFour: {fileID: -3906700614498198302, guid: dd2920f2642edde419f55fdf342a667f, type: 3}
+  diamondFive: {fileID: -6995051218938130595, guid: 517510f3697796d41b709e069f72101d, type: 3}
+  diamondSix: {fileID: -839651629184656629, guid: 257d66b0e33822640a6c58e4b7a8118b, type: 3}
+  diamondSeven: {fileID: -1378330050709765271, guid: 22426755411120c4e82669cda890d927, type: 3}
+  diamondEight: {fileID: 4193020584311162558, guid: f044abd9c7f1bb843a4ca4a3f0b3dcf2, type: 3}
+  diamondNine: {fileID: 3625055229933585588, guid: 2de42c520487cb84fb6c980d3dc55798, type: 3}
+  diamondTen: {fileID: -4446374619523708555, guid: 543fcc42191213546ae6b2b5ba88d66a, type: 3}
+  diamondJack: {fileID: -5113827237120091081, guid: 50dd827e22b48034ca2a19fcf67bb917, type: 3}
+  diamondQueen: {fileID: -8929877252246728355, guid: 23316b143b3dbdd45a13651efa95c860, type: 3}
+  diamondKing: {fileID: -9012509462677357105, guid: d1ea19685f3c7df48bce793652c8f1f2, type: 3}
+  spadeAce: {fileID: -8933953917366474792, guid: f2fc520bcfbbe744792a8c6280de0cc5, type: 3}
+  spadeTwo: {fileID: 6456436993457850981, guid: 62a9a3cf31cee3a4d94cd9c978a6d617, type: 3}
+  spadeThree: {fileID: -5992105709550960323, guid: 392c609c7cb73404dba881476ae3b4a6, type: 3}
+  spadeFour: {fileID: 2135825439964582914, guid: 636d1bb2101c6da449fbc1cdf9c8d89f, type: 3}
+  spadeFive: {fileID: 167516898920585187, guid: 5e183aed81a4a0141acde8984dac7391, type: 3}
+  spadeSix: {fileID: -2166222209916732484, guid: 86f851bec3d1b25459494537796adcf4, type: 3}
+  spadeSeven: {fileID: 226232210367796112, guid: fb5ace4387dddd349960e4e84de621be, type: 3}
+  spadeEight: {fileID: -4798444889095830941, guid: 152dbc946f71d7f419f6d1e58c086708, type: 3}
+  spadeNine: {fileID: -8195517560511556055, guid: e4ce9530342d9574aa3d2636f78278ae, type: 3}
+  spadeTen: {fileID: 3608646024405120401, guid: 71e1196ffeaf4f747b1b93aafbc79d9b, type: 3}
+  spadeJack: {fileID: 991130087708776675, guid: 2b1a3b8b308f66049819f3b8d25e96e1, type: 3}
+  spadeQueen: {fileID: -3894457378738667972, guid: df83af4112f78f948bb6491ce09c1c11, type: 3}
+  spadeKing: {fileID: -5363787779552867273, guid: 84a148c854bc30c4dbd64d1acd8e2578, type: 3}
