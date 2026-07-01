@@ -7,7 +7,7 @@ public class GameManager : MonoBehaviour
     public List<int> cards = new List<int>(52);
     public List<int> shuffledNumbers = new List<int>(52);
 
-    GameObject[,] gridPosition = new GameObject[12, 12];
+    GameObject[,] gridPosition = new GameObject[7, 12];
 
     public GameObject cardPrefab;
 
@@ -18,28 +18,19 @@ public class GameManager : MonoBehaviour
         //when the game starts, draw 28 cards
         //line the cards up so there are 7 columns
 
-        for (int x = 0; x < 7; x++)
-        {                                    
-            SetupCards(x, DrawCard());
-        }                
+        SetupCards();
+                     
     }
 
-    private void SetupCards(int x, int card)
+    void SetupCards()
     {
-        for (int i = 0; i <= x; i++)
+        for (int x = 0; x < 7; x++)
         {
-            for (int y = 0; y <= i; y++)
+            for (int y = 11; y >= 11 - x; y--)
             {
-                GameObject cardObj = Instantiate(cardPrefab, new Vector2(x, -y), Quaternion.identity);
-                Cards cardObjScript = cardObj.GetComponent<Cards>();
+                bool isRevealed = y == 11 - x;
 
-                cardObjScript.SetXPosition(x);
-                cardObjScript.SetYPosition(y);
-                cardObjScript.SetSpacing(x, -y);
-
-                cardObjScript.SetFace(card);
-
-                gridPosition[x, y] = cardObj;
+                DrawCard(x, y, isRevealed);
             }
         }
     }
@@ -67,18 +58,36 @@ public class GameManager : MonoBehaviour
 
             cards.RemoveAt(randomNumber);
 
-            print(shuffledNumbers[i]);
+            //print(shuffledNumbers[i]);
         }
     }
 
-    int DrawCard()
+    GameObject DrawCard(int x, int y, bool isRevealed)
     {
-        int draw = shuffledNumbers[0];
+        GameObject cardDrawn = Instantiate(cardPrefab, new Vector2(x, y), Quaternion.identity);
+        Cards cardDrawnObj = cardDrawn.GetComponent<Cards>();
 
+        cardDrawnObj.SetSpacing(x, y);
+        cardDrawnObj.SetXPosition(x);
+        cardDrawnObj.SetYPosition(y);
+        gridPosition[x, y] = cardDrawn;
+
+        cardDrawnObj.GetComponent<SpriteRenderer>().sortingOrder = -y;
+
+        int face = shuffledNumbers[0];
         shuffledNumbers.RemoveAt(0);
 
-        print(draw);        
+        if (!isRevealed)
+        {
+            cardDrawnObj.Hide();
+        }
+        else if(isRevealed)
+        {
+            cardDrawnObj.Reveal(face);
+        }
 
-        return draw;
+        print(face);
+
+        return cardDrawn;
     }
 }

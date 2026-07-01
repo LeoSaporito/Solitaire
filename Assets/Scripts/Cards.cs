@@ -13,6 +13,7 @@ public class Cards : MonoBehaviour
     public float xSpacing;
     public float ySpacing;
 
+    public Sprite back;
     public Sprite heartAce, heartTwo, heartThree, heartFour, heartFive, heartSix, heartSeven, heartEight, heartNine, heartTen, heartJack, heartQueen, heartKing, 
                   clubAce, clubTwo, clubThree, clubFour, clubFive, clubSix, clubSeven, clubEight, clubNine, clubTen, clubJack, clubQueen, clubKing,
                   diamondAce, diamondTwo, diamondThree, diamondFour, diamondFive, diamondSix, diamondSeven, diamondEight, diamondNine, diamondTen, diamondJack, diamondQueen, diamondKing,
@@ -45,7 +46,10 @@ public class Cards : MonoBehaviour
     {
         SetFace(card);
     }
-
+    public void Hide()
+    {
+        this.GetComponent<SpriteRenderer>().sprite = back;
+    }
     public void SetFace(int number)
     {
         switch (number)
