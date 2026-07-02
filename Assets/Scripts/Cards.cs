@@ -6,11 +6,9 @@ public class Cards : MonoBehaviour
 {
     public enum StateOfCard
     {
-        unrevealedInDrawPile, //0
-        revealedInDrawPile, //1
-        unrevealedOnBoard, //2
-        revealedOnBoard, //3
-        inSuitPile //4
+        unrevealed, 
+        revealed, 
+        inSuitPile
     }
 
     public int xPosition;
@@ -22,6 +20,7 @@ public class Cards : MonoBehaviour
     public float xSpacing;
     public float ySpacing;
 
+    public int faceCard;
     public string colour;
     public string suit;
     public int value;
@@ -29,14 +28,13 @@ public class Cards : MonoBehaviour
     public bool isSelected;
 
     public StateOfCard stateOfCard;
+    public string currentStateOfCard;
     public int stateOfCardInt;
-    public string unrevealedInDrawPileString = "UnrevealedInDrawPile",
-                  revealedInDrawPileString = "RevealedInDrawPile",
-                  unrevealedOnBoardString = "UnrevealedOnBoard",
-                  revealedOnBoardString = "RevealedOnBoard",
+    public string unrevealedString = "Unrevealed",
+                  revealedString = "Revealed",
                   inSuitPuleString = "InSuitPile";
 
-    public string currentStateOfCard;
+    public bool isCardRevealed = false;
 
     public Sprite back;
     public Sprite heartAce, heartTwo, heartThree, heartFour, heartFive, heartSix, heartSeven, heartEight, heartNine, heartTen, heartJack, heartQueen, heartKing, 
@@ -53,13 +51,13 @@ public class Cards : MonoBehaviour
 
         this.transform.position = new Vector2(x, y);        
     }
-    public void SetXPosition(float x)
+    public void SetXPosition(int x)
     {
-        x = xPosition;
+        xPosition = x;
     }
-    public void SetYPosition(float y)
+    public void SetYPosition(int y)
     {
-        y = yPosition;
+        yPosition = y;
     }
     public int GetXPosition()
     {
@@ -71,7 +69,7 @@ public class Cards : MonoBehaviour
     }
     public void Reveal(int card)
     {
-        SetFace(card);
+        SetFace(card);       
     }
     public void Hide()
     {
@@ -145,10 +143,8 @@ public class Cards : MonoBehaviour
         currentStateOfCard = stateOfCardString;
         switch (stateOfCardString)
         {
-            case "UnrevealedInDrawPile": this.stateOfCard = StateOfCard.unrevealedInDrawPile; break;
-            case "RevealedInDrawPile": this.stateOfCard = StateOfCard.revealedInDrawPile; break;
-            case "UnrevealedOnBoard": this.stateOfCard = StateOfCard.unrevealedOnBoard; break;
-            case "RevealedOnBoard": this.stateOfCard = StateOfCard.revealedOnBoard; break;
+            case "Unrevealed": this.stateOfCard = StateOfCard.unrevealed; break;
+            case "Revealed": this.stateOfCard = StateOfCard.revealed; break;
             case "InSuitPile": this.stateOfCard = StateOfCard.inSuitPile; break;
         }
     }
