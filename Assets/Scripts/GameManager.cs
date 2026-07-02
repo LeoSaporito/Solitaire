@@ -26,6 +26,8 @@ public class GameManager : MonoBehaviour
 
     public List<GameObject> cardsSelected = new List<GameObject>(2);
 
+    bool isRevealed;
+
     void Start()
     {
         ShuffleCards();
@@ -52,53 +54,59 @@ public class GameManager : MonoBehaviour
     }
     void SetupCards()
     {
+        
         for (int x = 0; x < 7; x++)
         {
             for (int y = 11; y >= 11 - x; y--)
             {
-                bool isRevealed = y == 11 - x;
+                bool isRevealedOnStart = gridPosition[x, y - 1] == null && y <= 11 - x;
 
-                GameObject cardsDrawnOnSetup = SetupCardsOnStart(x, y, isRevealed);
+                GameObject cardsDrawnOnSetup = SetupCardsOnStart(x, y, isRevealedOnStart);
             }
         }
     }
 
     GameObject SetupCardsOnStart(int x, int y, bool isRevealed)
     {
-        GameObject cardDrawn = Instantiate(cardPrefab, new Vector2(x, y), Quaternion.identity);
-        Cards cardDrawnObj = cardDrawn.GetComponent<Cards>();
+        GameObject cardObj = Instantiate(cardPrefab, new Vector2(x, y), Quaternion.identity);
+        Cards cardObjScript = cardObj.GetComponent<Cards>();
 
-        cardDrawnObj.SetSpacing(x, y);
-        cardDrawnObj.SetXPosition(x);
-        cardDrawnObj.SetYPosition(y);
-        gridPosition[x, y] = cardDrawn;
+        cardObjScript.SetSpacing(x, y);
+        cardObjScript.SetXPosition(x);
+        cardObjScript.SetYPosition(y);
 
-        cardDrawnObj.GetComponent<SpriteRenderer>().sortingOrder = -y;
+        gridPosition[x, y] = cardObj;
+
+        cardObjScript.GetComponent<SpriteRenderer>().sortingOrder = -y;
 
         int face = shuffledNumbers[0];
         shuffledNumbers.RemoveAt(0);
 
         if (!isRevealed)
         {
-            cardDrawnObj.Hide();
+            cardObjScript.SetStateOfCard("UnrevealedOnBoard");
+            cardObjScript.Hide();
         }
         else if(isRevealed)
         {
-            cardDrawnObj.Reveal(face);
+            cardObjScript.SetStateOfCard("RevealedOnBoard");
+            cardObjScript.Reveal(face);
         }
 
-        return cardDrawn;
+        return cardObj;
     }
 
     void DrawPile()
     {
-        GameObject drawPileObj = Instantiate(drawPilePrefab, new Vector2(-8, 3), Quaternion.identity);
+        GameObject drawPileObj = Instantiate(drawPilePrefab, new Vector2(-8, 2), Quaternion.identity);
     }
     GameObject DrawCard(float x, float y)
     {
         GameObject cardDrawn = Instantiate(cardPrefab, new Vector2(x, y), Quaternion.identity);
         Cards cardDrawnScript = cardDrawn.GetComponent<Cards>();
-        
+
+        cardDrawnScript.SetStateOfCard("RevealedInDrawPile");
+
         int face = shuffledNumbers[0];
         cardsInQueue.Add(face);
         shuffledNumbers.Remove(face);
@@ -109,7 +117,6 @@ public class GameManager : MonoBehaviour
 
         return cardDrawn;
     }
-    
     void SuitSections()
     {
         Instantiate(heartsPlacementPrefab, new Vector2(8, 3), Quaternion.identity);
@@ -128,17 +135,20 @@ public class GameManager : MonoBehaviour
 
             if (hit.collider != null)
             {
-                if (hit.collider.CompareTag("Draw Pile"))
+                GameObject cardObj = hit.collider.gameObject;
+                Cards cardObjScript = hit.collider.GetComponent<Cards>();
+
+                if (cardObj.CompareTag("Draw Pile"))
                 {
                     DrawCard(-8, 1);
                 }
-                if (hit.collider.CompareTag("Card Drawn"))
+                if (cardObj.CompareTag("Card Drawn"))
                 {
-                    Cards cardObjScript = hit.collider.GetComponent<Cards>();
-
                     cardObjScript.isSelected = true;
-
+                    cardObj.transform.localScale = new Vector3(1.25f, 1.25f, 1.25f);
                     cardsSelected.Add(hit.collider.gameObject);
+
+                    CardCheck();
                 }
             }
         }
@@ -149,23 +159,54 @@ public class GameManager : MonoBehaviour
         {
             Cards cardOneScript = cardsSelected[0].GetComponent<Cards>();
             Cards cardTwoScript = cardsSelected[1].GetComponent<Cards>();
-
+       
             if (cardOneScript.colour != cardTwoScript.colour && cardOneScript.value == cardTwoScript.value - 1)
             {
                 cardOneScript.transform.position = new Vector2(cardTwoScript.transform.position.x, cardTwoScript.transform.position.y - 1);
-                gridPosition[cardTwoScript.GetXPosition(),cardTwoScript.GetYPosition()] = cardsSelected[0];
+                cardOneScript.SetXPosition(cardTwoScript.transform.position.x);
+                cardOneScript.SetYPosition(cardTwoScript.transform.position.y);
+
+                gridPosition[cardOneScript.GetXPosition(),cardOneScript.GetYPosition()] = cardsSelected[0];
                 cardsSelected[0].GetComponent<SpriteRenderer>().sortingOrder = cardsSelected[1].GetComponent<SpriteRenderer>().sortingOrder + 1;
+
 
                 cardOneScript.isSelected = false;
                 cardTwoScript.isSelected = false;
             }
-            
+
+            cardsSelected[0].transform.localScale = new Vector3(1f, 1f, 1f);
+            cardsSelected[1].transform.localScale = new Vector3(1f, 1f, 1f);
+
             cardsSelected.RemoveAt(1);
             cardsSelected.RemoveAt(0);
         }
     }
+
+    void FlipOverCardOnBoard()
+    {
+        for (int x = 0; gridPosition[x, 0] != null; x++)
+        {
+            for (int y = 11; gridPosition[x, y] != null; y--)
+            {
+                GameObject cardObj = gridPosition[x, y];
+                Cards cardObjScript = cardObj.GetComponent<Cards>();
+                
+                print(gridPosition[x, y]);
+
+                if (gridPosition[x, y - 1] == null && cardObjScript.currentStateOfCard == "UnrevealedOnBoard")
+                {
+                    print(gridPosition[x, y - 1] + " is Null");
+                    cardObjScript.Reveal(shuffledNumbers[0]);
+                    cardObjScript.SetStateOfCard("RevealedOnBoard");
+                    shuffledNumbers.RemoveAt(0);
+                }
+            }
+        }
+        
+    }
+
     private void Update()
     {
-        CardCheck();
+        FlipOverCardOnBoard();
     }
 }

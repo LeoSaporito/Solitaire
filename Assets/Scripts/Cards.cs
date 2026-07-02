@@ -4,6 +4,15 @@ using System.Collections.Generic;
 
 public class Cards : MonoBehaviour
 {
+    public enum StateOfCard
+    {
+        unrevealedInDrawPile, //0
+        revealedInDrawPile, //1
+        unrevealedOnBoard, //2
+        revealedOnBoard, //3
+        inSuitPile //4
+    }
+
     public int xPosition;
     public int yPosition;
 
@@ -18,6 +27,16 @@ public class Cards : MonoBehaviour
     public int value;
 
     public bool isSelected;
+
+    public StateOfCard stateOfCard;
+    public int stateOfCardInt;
+    public string unrevealedInDrawPileString = "UnrevealedInDrawPile",
+                  revealedInDrawPileString = "RevealedInDrawPile",
+                  unrevealedOnBoardString = "UnrevealedOnBoard",
+                  revealedOnBoardString = "RevealedOnBoard",
+                  inSuitPuleString = "InSuitPile";
+
+    public string currentStateOfCard;
 
     public Sprite back;
     public Sprite heartAce, heartTwo, heartThree, heartFour, heartFive, heartSix, heartSeven, heartEight, heartNine, heartTen, heartJack, heartQueen, heartKing, 
@@ -118,6 +137,19 @@ public class Cards : MonoBehaviour
             case 49: this.GetComponent<SpriteRenderer>().sprite = spadeJack; this.colour = "black"; this.suit = "spades"; this.value = 11; break;
             case 50: this.GetComponent<SpriteRenderer>().sprite = spadeQueen; this.colour = "black"; this.suit = "spades"; this.value = 12; break;
             case 51: this.GetComponent<SpriteRenderer>().sprite = spadeKing; this.colour = "black"; this.suit = "spades"; this.value = 13; break;
+        }
+    }
+
+    public void SetStateOfCard(string stateOfCardString)
+    {
+        currentStateOfCard = stateOfCardString;
+        switch (stateOfCardString)
+        {
+            case "UnrevealedInDrawPile": this.stateOfCard = StateOfCard.unrevealedInDrawPile; break;
+            case "RevealedInDrawPile": this.stateOfCard = StateOfCard.revealedInDrawPile; break;
+            case "UnrevealedOnBoard": this.stateOfCard = StateOfCard.unrevealedOnBoard; break;
+            case "RevealedOnBoard": this.stateOfCard = StateOfCard.revealedOnBoard; break;
+            case "InSuitPile": this.stateOfCard = StateOfCard.inSuitPile; break;
         }
     }
 }
