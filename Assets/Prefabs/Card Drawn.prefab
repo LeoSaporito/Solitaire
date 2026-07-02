@@ -107,14 +107,22 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Cards
   xPosition: 0
   yPosition: 0
-  xOffset: -3
-  yOffset: -7
+  xOffset: -4
+  yOffset: -8
   xSpacing: 2
   ySpacing: 0.5
+  faceCard: 0
   colour: 
   suit: 
   value: 0
   isSelected: 0
+  stateOfCard: 0
+  currentStateOfCard: 
+  stateOfCardInt: 0
+  unrevealedString: Unrevealed
+  revealedString: Revealed
+  inSuitPuleString: InSuitPile
+  isCardRevealed: 0
   back: {fileID: 5000927251509650613, guid: 80046fd8f0274084a93bc575b38f1337, type: 3}
   heartAce: {fileID: -8441273733959377296, guid: 6ebeeb7307dcc8545b74aa215c085e1b, type: 3}
   heartTwo: {fileID: -4190777762730400788, guid: 7db7970171b279f4c8ede2ed6df6b2e8, type: 3}

@@ -14,7 +14,7 @@ public class GameManager : MonoBehaviour
     List<int> clubs = new List<int>(13);
     List<int> spades = new List<int>(13);
 
-    GameObject[,] gridPosition = new GameObject[7, 12];
+    GameObject[,] gridPosition = new GameObject[8, 13];
 
     public GameObject cardPrefab;
     public GameObject drawPilePrefab;
@@ -55,9 +55,9 @@ public class GameManager : MonoBehaviour
     void SetupCards()
     {
         
-        for (int x = 0; x < 7; x++)
+        for (int x = 1; x < 8; x++)
         {
-            for (int y = 11; y >= 11 - x; y--)
+            for (int y = 12; y >= 12 - x; y--)
             {
                 GameObject cardObj = Card(x, y);
                 cardObj.GetComponent<SpriteRenderer>().sortingOrder = -y;
@@ -92,6 +92,10 @@ public class GameManager : MonoBehaviour
     {
         GameObject drawPileObj = Instantiate(drawPilePrefab, new Vector2(-8, 2), Quaternion.identity);
     }
+    void DrawCard()
+    {
+
+    }
     void SuitSections()
     {
         Instantiate(heartsPlacementPrefab, new Vector2(8, 3), Quaternion.identity);
@@ -115,7 +119,9 @@ public class GameManager : MonoBehaviour
 
                 if (cardObj.CompareTag("Draw Pile"))
                 {
-                    //DrawCard(-8, 1);
+                    GameObject drawCardObj = Card(7, 12);
+                    DrawPile drawCardObjScript = drawCardObj.GetComponent<DrawPile>();
+                    drawCardObjScript.SetSpacing();
                 }
                 if (cardObj.CompareTag("Card Drawn"))
                 {
@@ -155,7 +161,6 @@ public class GameManager : MonoBehaviour
                 print(cardOneScript.GetXPosition() + "," + cardOneScript.GetYPosition());
                 print(cardTwoScript.GetXPosition() + "," + cardTwoScript.GetYPosition());
 
-
                 cardOneScript.isSelected = false;
                 cardTwoScript.isSelected = false;        
             }
@@ -169,9 +174,9 @@ public class GameManager : MonoBehaviour
 
     private void Update()
     {
-        for (int x = 0; x < 7; x++)
+        for (int x = 1; x < 8; x++)
         {
-            for (int y = 11; gridPosition[x, y] != null; y--)
+            for (int y = 12; gridPosition[x, y] != null; y--)
             {
                 GameObject cardObj = gridPosition[x, y];
                 Cards cardObjScript = cardObj.GetComponent<Cards>();

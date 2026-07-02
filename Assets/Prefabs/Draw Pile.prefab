@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 4867433132519288758}
   - component: {fileID: 4046112716314161}
   - component: {fileID: -5065859745576875740}
+  - component: {fileID: 4207140087947799169}
   m_Layer: 0
   m_Name: Draw Pile
   m_TagString: Draw Pile
@@ -138,3 +139,19 @@ BoxCollider2D:
   m_AutoTiling: 0
   m_Size: {x: 0.96875, y: 1.34375}
   m_EdgeRadius: 0
+--- !u!114 &4207140087947799169
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6951838149749214566}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: baa2de7c20fbca0419af2abbb47eee35, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::DrawPile
+  xPosition: 0
+  yPosition: 0
+  offsetX: 0
+  offsetY: 0
