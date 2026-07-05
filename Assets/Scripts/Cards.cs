@@ -140,12 +140,11 @@ public class Cards : MonoBehaviour
 
     public void SetStateOfCard(string stateOfCardString)
     {
-        currentStateOfCard = stateOfCardString;
         switch (stateOfCardString)
         {
-            case "Unrevealed": this.stateOfCard = StateOfCard.unrevealed; break;
-            case "Revealed": this.stateOfCard = StateOfCard.revealed; break;
-            case "InSuitPile": this.stateOfCard = StateOfCard.inSuitPile; break;
+            case "Unrevealed": this.stateOfCard = StateOfCard.unrevealed; isCardRevealed = false; break;
+            case "Revealed": this.stateOfCard = StateOfCard.revealed; isCardRevealed = true;  break;
+            case "InSuitPile": this.stateOfCard = StateOfCard.inSuitPile; isCardRevealed = true; break;
         }
     }
 }

@@ -2,6 +2,7 @@ using NUnit.Framework;
 using UnityEngine;
 using System.Collections.Generic;
 using UnityEngine.InputSystem;
+using Unity.VisualScripting;
 
 public class GameManager : MonoBehaviour
 {
@@ -77,9 +78,9 @@ public class GameManager : MonoBehaviour
 
         gridPosition[cardObjScript.GetXPosition(), cardObjScript.GetYPosition()] = cardObj;
 
-        //print(gridPosition[x, y]);
-        //print(cardObjScript.GetXPosition() + "," + cardObjScript.GetYPosition());
-        //print(shuffledNumbers[0]);
+        print(gridPosition[x, y]);
+        print(cardObjScript.GetXPosition() + "," + cardObjScript.GetYPosition());
+        print(shuffledNumbers[0]);
 
         cardObjScript.faceCard = shuffledNumbers[0];
         shuffledNumbers.RemoveAt(0);
@@ -91,10 +92,6 @@ public class GameManager : MonoBehaviour
     void DrawPile()
     {
         GameObject drawPileObj = Instantiate(drawPilePrefab, new Vector2(-8, 2), Quaternion.identity);
-    }
-    void DrawCard()
-    {
-
     }
     void SuitSections()
     {
@@ -119,15 +116,20 @@ public class GameManager : MonoBehaviour
 
                 if (cardObj.CompareTag("Draw Pile"))
                 {
-                    GameObject drawCardObj = Card(7, 12);
-                    DrawPile drawCardObjScript = drawCardObj.GetComponent<DrawPile>();
-                    drawCardObjScript.SetSpacing();
+                    GameObject drawnCardObj = Card(0, 8);
+                    Cards drawnCardObjScript = drawnCardObj.GetComponent<Cards>();
+
+                    drawnCardObjScript.Reveal(drawnCardObjScript.faceCard);
+
+                    cardsInQueue.Add(drawnCardObjScript.faceCard);
+
+                    drawnCardObj.GetComponent<SpriteRenderer>().sortingOrder = cardsInQueue.IndexOf(drawnCardObjScript.faceCard);
                 }
                 if (cardObj.CompareTag("Card Drawn"))
                 {
                     cardObjScript.isSelected = true;
                     cardObj.transform.localScale = new Vector3(1.25f, 1.25f, 1.25f);
-                    cardsSelected.Add(hit.collider.gameObject);
+                    cardsSelected.Add(cardObj);
 
                     CardCheck();
                 }
@@ -148,27 +150,54 @@ public class GameManager : MonoBehaviour
        
             if (cardOneScript.colour != cardTwoScript.colour && cardOneScript.value == cardTwoScript.value - 1)
             {
-                int sortingOrder = cardTwoObj.GetComponent<SpriteRenderer>().sortingOrder;
-                cardOneObj.GetComponent<SpriteRenderer>().sortingOrder = sortingOrder + 1;
+                if (gridPosition[cardOneScript.GetXPosition(), cardOneScript.GetYPosition() - 1] == null)
+                {
+                    int sortingOrder = cardTwoObj.GetComponent<SpriteRenderer>().sortingOrder;
+                    cardOneObj.GetComponent<SpriteRenderer>().sortingOrder = sortingOrder + 1;
 
-                cardOneScript.transform.position = new Vector2(cardTwoScript.transform.position.x, cardTwoScript.transform.position.y - 1);
-                gridPosition[cardOneScript.GetXPosition(), cardOneScript.GetYPosition()] = null;
+                    cardOneScript.transform.position = new Vector2(cardTwoScript.transform.position.x, cardTwoScript.transform.position.y - 1);
+                    gridPosition[cardOneScript.GetXPosition(), cardOneScript.GetYPosition()] = null;
 
-                cardOneScript.SetXPosition(cardTwoScript.GetXPosition());
-                cardOneScript.SetYPosition(cardTwoScript.GetYPosition() - 1);
+                    cardOneScript.SetXPosition(cardTwoScript.GetXPosition());
+                    cardOneScript.SetYPosition(cardTwoScript.GetYPosition() - 1);
 
-                cardOneObj = gridPosition[cardOneScript.GetXPosition(), cardOneScript.GetYPosition()];
-                print(cardOneScript.GetXPosition() + "," + cardOneScript.GetYPosition());
-                print(cardTwoScript.GetXPosition() + "," + cardTwoScript.GetYPosition());
+                    gridPosition[cardOneScript.GetXPosition(), cardOneScript.GetYPosition()] = cardOneObj;
 
+                    print(cardOneScript.GetXPosition() + "," + cardOneScript.GetYPosition());
+                    print(cardTwoScript.GetXPosition() + "," + cardTwoScript.GetYPosition());
+                    print(gridPosition[cardOneScript.GetXPosition(), cardOneScript.GetYPosition()]);
+                }
+                else if (gridPosition[cardOneScript.GetXPosition(), cardOneScript.GetYPosition()] != null)
+                {
+                    for (int y = 0; gridPosition[cardOneScript.GetXPosition(), cardOneScript.GetYPosition() - y] != null; y++)
+                    {
+                        GameObject childCard = gridPosition[cardOneScript.GetXPosition(), cardOneScript.GetYPosition() - y];
+                        Cards childCardScript = childCard.GetComponent<Cards>();
+                        
+                        int sortingOrder = childCard.GetComponent<SpriteRenderer>().sortingOrder;
+                        childCard.GetComponent<SpriteRenderer>().sortingOrder = sortingOrder + 1 + y;
+
+                        childCard.transform.position = new Vector2(cardTwoScript.transform.position.x, cardTwoScript.transform.position.y - 1 - y);
+
+                        gridPosition[childCardScript.GetXPosition(), childCardScript.GetYPosition() - y] = null;
+
+                        childCardScript.SetXPosition(childCardScript.GetXPosition());
+                        childCardScript.SetYPosition(childCardScript.GetYPosition() - 1 - y);
+
+                        gridPosition[childCardScript.GetXPosition(), childCardScript.GetYPosition() - 1 - y] = cardOneObj;
+
+                        //print(childCardScript.GetXPosition() + "," + childCardScript.GetYPosition());
+                        //print(childCardScript.GetXPosition() + "," + childCardScript.GetYPosition());
+                        //print(gridPosition[childCardScript.GetXPosition(), childCardScript.GetYPosition()]);
+                    }
+                }
+                
                 cardOneScript.isSelected = false;
-                cardTwoScript.isSelected = false;        
-            }
+                cardTwoScript.isSelected = false;                               
+            }            
             
             cardsSelected.RemoveAt(1);
             cardsSelected.RemoveAt(0);
-
-            print("removed");
         }
     }
 
@@ -181,16 +210,15 @@ public class GameManager : MonoBehaviour
                 GameObject cardObj = gridPosition[x, y];
                 Cards cardObjScript = cardObj.GetComponent<Cards>();
 
-                //cardObj.GetComponent<SpriteRenderer>().sortingOrder = -y;
-                if (gridPosition[x, y - 1] != null)
+                if (gridPosition[x, y - 1] != null && cardObjScript.isCardRevealed == false)
                 {
                     cardObjScript.Hide();
-                    cardObjScript.currentStateOfCard = "Unrevealed";
+                    cardObjScript.SetStateOfCard("Unrevealed");
                 }
                 else if (gridPosition[x, y - 1] == null)
                 {
                     cardObjScript.Reveal(cardObjScript.faceCard);
-                    cardObjScript.currentStateOfCard = "Revealed";
+                    cardObjScript.SetStateOfCard("Revealed");
                 }
             }
         }
