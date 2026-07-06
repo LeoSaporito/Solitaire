@@ -171,7 +171,7 @@ public class GameManager : MonoBehaviour
                 {
                     for (int y = 0; gridPosition[cardOneScript.GetXPosition(), cardOneScript.GetYPosition() - y] != null; y++)
                     {
-                        GameObject childCard = gridPosition[cardOneScript.GetXPosition(), cardOneScript.GetYPosition() - y];
+                        GameObject childCard = gridPosition[cardTwoScript.GetXPosition(), cardTwoScript.GetYPosition() - 1 - y];
                         Cards childCardScript = childCard.GetComponent<Cards>();
                         
                         int sortingOrder = childCard.GetComponent<SpriteRenderer>().sortingOrder;
