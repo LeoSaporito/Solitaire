@@ -29,12 +29,13 @@ public class Cards : MonoBehaviour
 
     public StateOfCard stateOfCard;
     public string currentStateOfCard;
-    public int stateOfCardInt;
     public string unrevealedString = "Unrevealed",
                   revealedString = "Revealed",
                   inSuitPuleString = "InSuitPile";
 
     public bool isCardRevealed = false;
+
+    public bool isInDeck;
 
     public Sprite back;
     public Sprite heartAce, heartTwo, heartThree, heartFour, heartFive, heartSix, heartSeven, heartEight, heartNine, heartTen, heartJack, heartQueen, heartKing, 
@@ -140,6 +141,8 @@ public class Cards : MonoBehaviour
 
     public void SetStateOfCard(string stateOfCardString)
     {
+        currentStateOfCard = stateOfCardString;
+
         switch (stateOfCardString)
         {
             case "Unrevealed": this.stateOfCard = StateOfCard.unrevealed; isCardRevealed = false; break;

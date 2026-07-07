@@ -8,6 +8,7 @@ TagManager:
   - Card Drawn
   - Suit Placement Spot
   - Reload Draw Deck
+  - Column
   layers:
   - Default
   - TransparentFX
