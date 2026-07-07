@@ -6,6 +6,8 @@ TagManager:
   tags:
   - Draw Pile
   - Card Drawn
+  - Suit Placement Spot
+  - Reload Draw Deck
   layers:
   - Default
   - TransparentFX
