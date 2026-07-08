@@ -251,7 +251,7 @@ public class GameManager : MonoBehaviour
 
                     cardOneObj.transform.position = new Vector2(cardTwoObj.transform.position.x, (cardTwoObj.transform.position.y - 0.5f));
                 }
-                else if (gridPosition[cardOneScript.GetXPosition(), cardOneScript.GetYPosition() - 1] != null)
+                else
                 {
                     MovePile(cardOneObj, cardTwoObj);
                 }
@@ -289,9 +289,9 @@ public class GameManager : MonoBehaviour
 
         cardsSelected[1].transform.localScale = new Vector3(1f, 1f, 1f);
         cardsSelected[0].transform.localScale = new Vector3(1f, 1f, 1f);
-            
+
         cardsSelected.RemoveAt(1);
-        cardsSelected.RemoveAt(0);        
+        cardsSelected.RemoveAt(0);
     }
     void MovePile(GameObject movingCardObj, GameObject targetCardObj)
     {
